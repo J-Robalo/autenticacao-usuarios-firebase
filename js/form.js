@@ -1,4 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAw3M4X-EoXqcFYd6eO2KZlbkafmccFI1c",
@@ -10,6 +14,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 document.getElementById("reg-btn").addEventListener("click", function () {
   document.getElementById("register-div").style.display = "inline";
@@ -19,4 +24,18 @@ document.getElementById("reg-btn").addEventListener("click", function () {
 document.getElementById("log-btn").addEventListener("click", function () {
   document.getElementById("register-div").style.display = "none";
   document.getElementById("login-div").style.display = "inline";
+});
+
+document.getElementById("login-btn").addEventListener("click", function () {
+  const loginEmail = document.getElementById("login-email").value;
+  const loginPassword = document.getElementById("login-password").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
 });
